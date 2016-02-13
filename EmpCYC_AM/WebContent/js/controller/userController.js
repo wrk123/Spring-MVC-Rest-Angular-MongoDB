@@ -6,7 +6,6 @@ user.controller('userController',function($scope,$http){
 	$scope.sortType= 'name';       // set the default sort type
 	$scope.sortReverse= false;     // set the default sort order
 	$scope.searchUser= '';         // set the default search/filter term
-	//$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 	$http.defaults.headers.post["Content-Type"] = "application/json";
 	
 	//get all users and display initially
@@ -25,8 +24,7 @@ user.controller('userController',function($scope,$http){
 		else{
 		    //$http.post(urlBase + 'users/insert/'+$scope.user)
 			//$http.post(urlBase + 'users/insert/'+$scope.user.firstName+'/'+$scope.user.lastName+'/'+$scope.user.email+'/'+$scope.user.mobile+'/'+$scope.user.status+'/'+$scope.user.city+'/'+$scope.user.state)
-			console.log("Email id of the user is "+$scope.users.id+"]");
-			console.log("Printing the values... ["+$scope.user.firstName+'/'+$scope.user.lastName+'/'+$scope.user.email+'/'+$scope.user.mobile+'/'+$scope.user.status+"]");
+			
 			$http.post(urlBase + 'users/insert/'+$scope.user.firstName+'/'+$scope.user.lastName+'/'+$scope.user.email+'/'+$scope.user.mobile+'/'+$scope.user.status)
 		 	.success(function(data) {
 			 $scope.users = data;	
@@ -39,8 +37,8 @@ user.controller('userController',function($scope,$http){
 			}
 		};
 					  
-		$scope.archiveUser = function archiveUser(email){
-			$http.post(urlBase+'users/archive/'+email)
+		$scope.archiveUser = function archiveUser(id){
+			$http.post(urlBase+'users/archive/'+id)
 			.success(function(data) {
 				$scope.users = data;
 			});
@@ -66,10 +64,10 @@ user.controller('userController',function($scope,$http){
 	    $scope.updateUser=function(user){
 	    	if(user.firstName=='' || user.lastName=='' || user.email=='' || user.mobile==''){
 	    		alert("Please enter the new values !!!");
-	    	}else{
+	    	}else{	    		
 	    		$http.post(urlBase+'users/update/'+user.id+'/'+user.firstName+'/'+user.lastName+'/'+user.email+'/'+user.mobile+'/'+user.creation_time+'/'+user.status)
 				.success(function(data) {
-					$scope.users = data;								
+					$scope.users = data;
 					 $scope.selected = {};
 				});
 	    	}	
