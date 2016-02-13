@@ -100,7 +100,7 @@ pageEncoding="ISO-8859-1"%>
 				    	<td>{{ user.status }}</td>
 				    	<td>
 				    		&nbsp;<button class="btn btn-info" ng-click="editUser(user)"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;
-				    		<button class="btn" ng-Click='archiveUser(user.email)'><i class="fa fa-archive"></i></button> 
+				    		<button class="btn" ng-Click='archiveUser(user.id)'><i class="fa fa-archive"></i></button> 
 				    	</td>
 					</script>
    					<script type="text/ng-template" id="edit">
