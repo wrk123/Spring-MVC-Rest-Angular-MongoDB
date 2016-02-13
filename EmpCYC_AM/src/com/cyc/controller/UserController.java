@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cyc.service.UserService;
@@ -26,15 +27,15 @@ public class UserController {
 	
 	 //Method for getting all user details 
 	 @RequestMapping(value="/users",method = RequestMethod.GET,headers="Accept=application/json")
-	 public List<User> getAllUsers() {	 
+	 public @ResponseBody List<User> getAllUsers() {	 
 	  List<User> users=userService.getAllUserService();
 	  return users;
 	 }
 	 
 	 
-	 @RequestMapping(value="/users/archive/{email}",method = RequestMethod.POST,headers="Accept=application/json")
-	 public List<User> archiveUser(@PathVariable String email) {	
-		 userService.archieveUserService(email);
+	 @RequestMapping(value="/users/archive/{id}",method = RequestMethod.POST,headers="Accept=application/json")
+	 public @ResponseBody List<User> archiveUser(@PathVariable String id) {	
+		 userService.archieveUserService(id);
 	   List<User> users=userService.getAllUserService();
 	  return users;
 	
@@ -42,9 +43,10 @@ public class UserController {
 	 
 	 
 	 @RequestMapping(value="/users/update/{id}/{firstName}/{lastName}/{email}/{mobile}/{creation_time}/{status}",method = RequestMethod.POST,headers="Accept=application/json")
-	 public List<User> updateUser(@PathVariable int id,@PathVariable String firstName,@PathVariable String lastName,@PathVariable String email,@PathVariable String mobile,@PathVariable long creation_time,@PathVariable String status) throws ParseException {	
+	 public @ResponseBody List<User> updateUser(@PathVariable String id,@PathVariable String firstName,@PathVariable String lastName,@PathVariable String email,@PathVariable String mobile,@PathVariable long creation_time,@PathVariable String status) throws ParseException {	
 		 Date date = new Date(creation_time); 
 		 User user = new User();
+		   user.setId(id);
 		   user.setFirstName(firstName);
 		   user.setLastName(lastName);
 		   user.setEmail(email);
@@ -52,6 +54,7 @@ public class UserController {
 		   user.setLast_update_time(new Date());
 		   user.setCreation_time(date);
 		   user.setStatus(status);
+		   logger.info(":: Setting values in controller ::"+user); 
 		   userService.updateUserService(user);
 		
 		 return userService.getAllUserService();
@@ -71,6 +74,7 @@ public class UserController {
 			user.setLast_update_time(date);
 			user.setMobile(mobile);
 			user.setStatus(status);
+		logger.info("::Setting user values :::["+user+"]");
 		userService.saveUserService(user);
 		logger.info("Returning the values after adding user ");
 		return userService.getAllUserService();
