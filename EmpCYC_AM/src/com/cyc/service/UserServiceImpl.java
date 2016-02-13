@@ -24,20 +24,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> updateUserService(User user) {
-		logger.info("## Inside update user sercvice method ...");
+		logger.info("## Inside update user service method ::"+user);
 		return userDAO.updateUser(user);
 	}
 
 	@Override
-	public List<User> archieveUserService(String email) {
+	public List<User> archieveUserService(String id) {
 		logger.info("## Inside archieve user sercvice method ...");
-		return userDAO.archieveUser(email);
+		return userDAO.archieveUser(id);
 	}
 
 	@Override
-	public User getUserService(String email) {
+	public User getUserService(String id) {
 	logger.info("## Inside get one user  sercvice method ...");
-		return userDAO.getUser(email);
+		return userDAO.getUser(id);
 	}
 
 	@Override

@@ -8,8 +8,8 @@ public interface UserDAO {
 
 	public int saveUser(User user);
 	public List<User> updateUser(User user);
-	public List<User> archieveUser(String email);
-	public User getUser(String email);
+	public List<User> archieveUser(String id);
+	public User getUser(String id);
 	public List<User> getAllUser();
 	
 }
